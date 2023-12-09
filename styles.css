@@ -1,16 +1,22 @@
+.calendar {
+    min-width: 400px;
+}
+
 .week {
     display: flex;
     flex-direction: row;
-    gap: 30px;
+    gap: 15px;
 }
 
 .week-number {
     color: gray;
-    width: 30px;
+    width: 15px;
 }
 
 .day {
-    width: 20px;
+    width: 25px;
+    height: 25px;
+    text-align: center;
 }
 
 .work-day {
@@ -24,5 +30,5 @@
 .db-select {
     display: flex;
     flex-direction: row;
-    gap: 20px;
+    gap: 15px;
 }

@@ -31,7 +31,7 @@ class Calendar {
 		const months = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 
 		'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'];
 
-		return `<div class="month-title">${months[month]} ${year}</div>`
+		return `<div class="month-title">${months[month].substring(0, 4)}'${year.substring(2, 4)}</div>`
 	}
 
 	render(smena, ud) {
@@ -42,28 +42,37 @@ class Calendar {
 		let month = 0;
 		let monthTitle = ''
 		let counter = smena + 1;
-		for (let i = 0; i <= 365; i++) {			
-			week = week + this.renderDay(current.getDate(), (counter % 4 == 0), (weekNumber % 2 == ud)) + ' ';
-
+		let udCounter = 0;
+		let summaryHTML = ''
+		for (let i = 0; i <= 1000; i++) {			
 			if (current.getMonth() != month) {
 				weekNumber = 1;
 				month = current.getMonth()
 				monthTitle = current.getMonth();
 			}
 
+			let workDay = counter % 4 == 0;
+			let udDay = (weekNumber % 2 == ud);
+			if (workDay && udDay)
+				udCounter++;
+			week = week + this.renderDay(current.getDate(), workDay, udDay) + ' ';
 			if (current.getDay() == 0) {
 				week = this.renderWeekNumber(weekNumber) + week;
 				if (weekNumber == 1) {
-					week = week + this.renderMonthTitle(monthTitle, current.getYear());
+					week = week + this.renderMonthTitle(monthTitle, String(current.getFullYear()));
 				}
 				html = html +this.renderWeek(week);
 				week = ''
 				weekNumber++;
 			}
+
 			current = this.addDays(current, 1);
 			counter++;
 		}
-		return `<div>${html}</div>`
+
+		summaryHTML = `<div class="summary">${udCounter} дней на УД</div>`
+
+		return `<div>${summaryHTML}${html}</div>`
 	}
 }
 
@@ -85,13 +94,12 @@ class App {
 	render() {
 		let smena = this.smenaSelect.selectedIndex;
 		let ud = this.udSelect.selectedIndex;
-		let appElement = document.querySelector('.app');
-		appElement.innerHTML = this.calendar.render(smena, ud);
+		let calendarElement = document.querySelector('.calendar');
+		calendarElement.innerHTML = this.calendar.render(smena, ud);
 	}
 }
 
 window.onload = () => {
-	//console.log('onload()');
 	let app = new App();
 	app.render();
 }
