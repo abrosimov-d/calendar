@@ -45,7 +45,7 @@ class Calendar {
 		let udCounter = 0;
 		let summaryHTML = ''
 
-		current = this.addDays(current, -current.getDay()-6);
+		//current = this.addDays(current, -current.getDay()-6);
 
 		for (let i = 0; i <= 1000; i++) {			
 			if (current.getMonth() != month) {
