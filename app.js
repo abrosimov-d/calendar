@@ -35,7 +35,7 @@ class Calendar {
 	}
 
 	render(smena, ud) {
-		let current = new Date('12 4 2023');
+		let current = new Date();
 		let html = '';
 		let week = '';
 		let weekNumber = 1;
