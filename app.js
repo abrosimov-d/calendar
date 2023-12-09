@@ -1,22 +1,67 @@
+class WorkDate {
+	constructor(date) {
+		this.date = date;
+	}
+}
+
 class App {
 	constructor() {
 
 	}
 
-	addDay(date) {
+	addDays(date, days) {
 		let result = new Date(date);
-		result.setDate(result.getDate() + 1)
+		result.setDate(result.getDate() + days)
 		return result;
 	}
 
+	renderDay(day, workDay) {
+		return `<div class="day;${workDay?'work-day':''}">${day}</div>`
+	}
+
+	renderWeek(html) {
+		return `<div class="week">${html}</div>`
+	}
+
+	renderWeekNumber(weekNumber) {
+		return `<div class="week-number">${weekNumber}</div>`
+	}
+
+	renderMonthTitle(month) {
+		const months = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 
+		'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'];
+
+		return `<div class="month-title">${months[month]}</div>`
+	}
+
 	render() {
-		let current = new Date();
-		let html = ''
-		for (let i = 0; i <= 365; i++) {
-			html = html + current.getDate() + ' ';
-			if (current.getDay() == 0)
-				html = html + '<br>';
-			current = this.addDay(current)
+		let current = new Date('12 4 2023');
+		let html = '';
+		let week = '';
+		let weekNumber = 1;
+		let month = 0;
+		let monthTitle = ''
+		let counter = 0;
+		for (let i = 0; i <= 365; i++) {			
+			week = week + this.renderDay(current.getDate(), workDay) + ' ';
+
+			if (current.getMonth() != month) {
+				weekNumber = 1;
+				month = current.getMonth()
+				monthTitle = current.getMonth();
+			}
+
+			if (current.getDay() == 0) {
+				week = this.renderWeekNumber(weekNumber) + week;
+				if (weekNumber == 1) {
+					week = week + this.renderMonthTitle(monthTitle);
+				}
+				html = html +this.renderWeek(week);
+				week = ''
+				weekNumber++;
+			}
+			current = this.addDays(current, 1);
+			counter++;
 		}
 		return `<div>${html}</div>`
 	}

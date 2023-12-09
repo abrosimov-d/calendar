@@ -1,0 +1,18 @@
+.week {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
+.week-number {
+    color: gray;
+    width: 30px;
+}
+
+.day {
+    width: 10px;
+}
+
+.work-day {
+    background: #000;
+}
