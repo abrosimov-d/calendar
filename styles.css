@@ -10,9 +10,19 @@
 }
 
 .day {
-    width: 10px;
+    width: 20px;
 }
 
 .work-day {
-    background: #000;
+    background: pink;
+}
+
+.ud {
+    background: orange;
+}
+
+.db-select {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
 }
