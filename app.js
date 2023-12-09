@@ -35,7 +35,7 @@ class Calendar {
 	}
 
 	render(smena, ud) {
-		let current = new Date();
+		let current = new Date('12 4 2023');
 		let html = '';
 		let week = '';
 		let weekNumber = 1;
@@ -44,6 +44,9 @@ class Calendar {
 		let counter = smena + 1;
 		let udCounter = 0;
 		let summaryHTML = ''
+
+		current = this.addDays(current, -current.getDay()-6);
+
 		for (let i = 0; i <= 1000; i++) {			
 			if (current.getMonth() != month) {
 				weekNumber = 1;
